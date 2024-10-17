@@ -1,6 +1,6 @@
 import Entities.Enum.StatusCell
 import Entities.Model.GameBoard
-import Entities.Model.Player
+import Entities.Model.ModelPlayer
 import Players.PlayerComputer
 import Players.PlayerHuman
 
@@ -15,7 +15,6 @@ class Game {
         playerHuman.placeShips()
         playerComputer.placeShips()
 
-        isGameOver = false
         while (!isGameOver) {
             playTurn(playerHuman, playerComputer, isHumanTurn = true)
             if (isGameOver) break
@@ -24,7 +23,7 @@ class Game {
         println("Игра окончена!")
     }
 
-    private fun playTurn(currentPlayer: Player, opponentPlayer: Player, isHumanTurn: Boolean) {
+    private fun playTurn(currentPlayer: ModelPlayer, opponentPlayer: ModelPlayer, isHumanTurn: Boolean) {
         var continueTurn = true
         while (continueTurn && !isGameOver) {
             if (isHumanTurn) {
@@ -46,17 +45,16 @@ class Game {
         }
     }
 
-    private fun checkGameOver(player: Player) {
-        isGameOver = player.gameBoard.grid.flatten().none { it.status == StatusCell.SHIP }
+    private fun checkGameOver(modelPlayer: ModelPlayer) {
+        isGameOver = modelPlayer.gameBoard.grid.flatten().none { it.status == StatusCell.SHIP }
         if (isGameOver) {
-            println("${player::class.simpleName} проиграл! Все корабли потоплены.")
+            println("${modelPlayer::class.simpleName} проиграл! Все корабли потоплены.")
         }
     }
 
     // Вывод досок игрока и компьютера
     private fun printBoards() {
-        println("\tВаша доска:\t\t\t\tДоска компьютера:")
-        print("   ")
+        print("\tВаша доска:\t\t\t\tДоска компьютера:\n   ")
         for (i in 0 until playerHuman.gameBoard.size) {
             print("$i ")
         }
@@ -64,23 +62,18 @@ class Game {
         for (i in 0 until playerComputer.gameBoard.size) {
             print("$i ")
         }
-        println()
 
         for (i in 0 until playerHuman.gameBoard.size) {
-            print("$i  ")
+            print("\n$i  ")
             printRow(playerHuman.gameBoard, i, true)
-            print("\t\t")
-            print("$i  ")
+            print("\t\t$i  ")
             printRow(playerComputer.gameBoard, i, false)
-            println()
         }
+        println()
     }
 
     // Вывод строки доски
     private fun printRow(gameBoard: GameBoard, row: Int, showShips: Boolean) {
-        for (cell in gameBoard.grid[row]) {
-            val symbol = cell.getStat(showShips)
-            print("$symbol ")
-        }
+        for (cell in gameBoard.grid[row]) { print("${cell.getStat(showShips)} ") }
     }
 }

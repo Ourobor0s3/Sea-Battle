@@ -5,9 +5,9 @@ import Entities.DataClass.Ship
 import Entities.Enum.StatusCell
 import Entities.Enum.TypeOrientation
 import Entities.Model.GameBoard
-import Entities.Model.Player
+import Entities.Model.ModelPlayer
 
-class PlayerHuman(gameBoard: GameBoard) : Player(gameBoard) {
+class PlayerHuman(gameBoard: GameBoard) : ModelPlayer(gameBoard) {
 
     override fun processShotResult(opponentBoard: GameBoard, shotCoordinate: Coordinate, result: StatusCell) {
         when (result) {
@@ -80,10 +80,7 @@ class PlayerHuman(gameBoard: GameBoard) : Player(gameBoard) {
         println("  " + (0 until gameBoard.size).joinToString(" ") { it.toString() })
         gameBoard.grid.forEachIndexed { rowIndex, row ->
             print("$rowIndex ")
-            row.forEach { cell ->
-                val symbol = cell.getStat()
-                print("$symbol ")
-            }
+            row.forEach { cell -> print("${cell.getStat()} ") }
             println()
         }
     }

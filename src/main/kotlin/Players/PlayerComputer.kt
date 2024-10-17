@@ -5,9 +5,9 @@ import Entities.DataClass.Ship
 import Entities.Enum.StatusCell
 import Entities.Enum.TypeOrientation
 import Entities.Model.GameBoard
-import Entities.Model.Player
+import Entities.Model.ModelPlayer
 
-class PlayerComputer(gameBoard: GameBoard) : Player(gameBoard) {
+class PlayerComputer(gameBoard: GameBoard) : ModelPlayer(gameBoard) {
     private var lastHit: Coordinate? = null  // Координаты последнего попадания
     private var targetCoordinates: MutableList<Coordinate> = mutableListOf()  // Клетки для дальнейших выстрелов
 
@@ -72,6 +72,10 @@ class PlayerComputer(gameBoard: GameBoard) : Player(gameBoard) {
             Coordinate(0, -1)  // Влево
         )
 
+        // TODO добавить проверку на статус клетки
+        // Так как проверки не статус клетки нету, в методе makeMove если не проходит
+        // валидация, то он стреляет рандомно, что может попасть по кораблю и
+        // обновить список
         for (dir in directions) {
             val newX = coordinate.x + dir.x
             val newY = coordinate.y + dir.y

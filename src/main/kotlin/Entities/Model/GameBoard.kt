@@ -22,9 +22,11 @@ class GameBoard(val size: Int = 10) {
 
     fun receiveShot(coordinate: Coordinate): StatusCell {
         val cell = grid[coordinate.x][coordinate.y]
+        // если попал - возврат статуса hit, иначе miss
         return if (cell.status == StatusCell.SHIP) {
             cell.status = StatusCell.HIT
             val ship = findShipByCoordinate(coordinate)
+            // Если корабль уничтожен, то пометить клетки вокруг него
             if (ship != null && isShipSunk(ship)) {
                 markSurroundingCellsAsMiss(ship)
             }
@@ -37,6 +39,7 @@ class GameBoard(val size: Int = 10) {
 
     // Проверяем, что корабль можно разместить на доске, и вокруг него нет других кораблей
     private fun canPlaceShip(ship: Ship): Boolean {
+        // Возвращает истину, если координаты корабля и вокруг него входят в размеры доски, статусы клеток empty
         return ship.coordinates.all { coord ->
             coord.x in 0 until size && coord.y in 0 until size && grid[coord.x][coord.y].status == StatusCell.EMPTY
         } && getAdjacentCoordinates(ship.coordinates).all { coord ->

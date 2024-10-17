@@ -4,6 +4,7 @@ import Entities.Enum.StatusCell
 
 data class Cell(var status: StatusCell) {
     fun getStat(showShips: Boolean = true): String {
+        // TODO можно поискать еще различных символов, главное чтобы совпадали размеры
         return when (status) {
             StatusCell.EMPTY -> "~"  // Пустая клетка
             StatusCell.SHIP -> if (showShips) "\uD83C\uDD42" else "~"  // Корабль, показывает в случае если showShips истина

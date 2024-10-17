@@ -5,27 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ff8ca80-6207-4e0d-992b-93a1ef00adeb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SeaBattle.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/DataClass/Cell.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/DataClass/Coordinate.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/DataClass/Ship.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/Enum/StatusCell.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/Enum/TypeOrientation.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/Model/GameBoard.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/Model/Player.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Game.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Players/PlayerComputer.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Players/PlayerHuman.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Entities/DataClass/Cell.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/DataClass/Cell.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Entities/Model/GameBoard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/Model/GameBoard.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Entities/Model/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Entities/Model/ModelPlayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Game.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Game.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Players/PlayerComputer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Players/PlayerComputer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Players/PlayerHuman.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Players/PlayerHuman.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,5 +82,16 @@
       <updated>1727961363174</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
