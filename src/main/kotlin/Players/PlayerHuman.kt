@@ -2,16 +2,16 @@ package Players
 
 import Entities.DataClass.Coordinate
 import Entities.DataClass.Ship
-import Entities.Enum.CellStatus
-import Entities.Enum.Orientation
-import Entities.Model.Board
+import Entities.Enum.StatusCell
+import Entities.Enum.TypeOrientation
+import Entities.Model.GameBoard
 import Entities.Model.Player
 
-class HumanPlayer(board: Board) : Player(board) {
+class PlayerHuman(gameBoard: GameBoard) : Player(gameBoard) {
 
-    override fun processShotResult(opponentBoard: Board, shotCoordinate: Coordinate, result: CellStatus) {
+    override fun processShotResult(opponentBoard: GameBoard, shotCoordinate: Coordinate, result: StatusCell) {
         when (result) {
-            CellStatus.HIT -> {
+            StatusCell.HIT -> {
                 println("Попадание в корабль на координатах (${shotCoordinate.x}, ${shotCoordinate.y})!")
                 if (opponentBoard.isShipSunk(shotCoordinate)) {
                     println("Корабль потоплен!")
@@ -21,14 +21,14 @@ class HumanPlayer(board: Board) : Player(board) {
                     }
                 }
             }
-            CellStatus.MISS -> {
+            StatusCell.MISS -> {
                 println("Промах на координатах (${shotCoordinate.x}, ${shotCoordinate.y}).")
             }
             else -> {}
         }
     }
 
-    override fun makeMove(opponentBoard: Board): Coordinate {
+    override fun makeMove(opponentBoard: GameBoard): Coordinate {
         // Запрашиваем координаты у игрока
         println("Введите координаты для выстрела (формат: x y):")
         val input = readLine()?.split(" ") ?: listOf()
@@ -54,11 +54,11 @@ class HumanPlayer(board: Board) : Player(board) {
                     val x = input[0].toIntOrNull()
                     val y = input[1].toIntOrNull()
                     val orientationInput = input[2]
-                    if (x != null && y != null && x in 0 until board.size && y in 0 until board.size) {
-                        val orientation = if (orientationInput == "h") Orientation.HORIZONTAL else Orientation.VERTICAL
-                        val coordinates = generateCoordinates(size, Coordinate(x, y), orientation)
-                        val ship = Ship(size, coordinates, orientation)
-                        placed = board.placeShip(ship)
+                    if (x != null && y != null && x in 0 until gameBoard.size && y in 0 until gameBoard.size) {
+                        val typeOrientation = if (orientationInput == "h") TypeOrientation.HORIZONTAL else TypeOrientation.VERTICAL
+                        val coordinates = generateCoordinates(size, Coordinate(x, y), typeOrientation)
+                        val ship = Ship(size, coordinates, typeOrientation)
+                        placed = gameBoard.placeShip(ship)
                         if (placed) {
                             println("Корабль успешно установлен!")
                             printBoard()
@@ -77,25 +77,20 @@ class HumanPlayer(board: Board) : Player(board) {
 
     // Вывод доски игрока с отображением состояний клеток
     private fun printBoard() {
-        println("  " + (0 until board.size).joinToString(" ") { it.toString() })
-        board.grid.forEachIndexed { rowIndex, row ->
+        println("  " + (0 until gameBoard.size).joinToString(" ") { it.toString() })
+        gameBoard.grid.forEachIndexed { rowIndex, row ->
             print("$rowIndex ")
             row.forEach { cell ->
-                val symbol = when (cell.status) {
-                    CellStatus.EMPTY -> "~"
-                    CellStatus.SHIP -> "S"
-                    CellStatus.HIT -> "X"
-                    CellStatus.MISS -> "O"
-                }
+                val symbol = cell.getStat()
                 print("$symbol ")
             }
             println()
         }
     }
 
-    private fun generateCoordinates(size: Int, start: Coordinate, orientation: Orientation): List<Coordinate> {
+    private fun generateCoordinates(size: Int, start: Coordinate, typeOrientation: TypeOrientation): List<Coordinate> {
         return (0 until size).map {
-            if (orientation == Orientation.HORIZONTAL) {
+            if (typeOrientation == TypeOrientation.HORIZONTAL) {
                 Coordinate(start.x, start.y + it)
             } else {
                 Coordinate(start.x + it, start.y)

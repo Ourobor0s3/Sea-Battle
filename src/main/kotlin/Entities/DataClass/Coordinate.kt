@@ -1,4 +1,3 @@
 package Entities.DataClass
 
-class Coordinate {
-}
+data class Coordinate(val x: Int, val y: Int)

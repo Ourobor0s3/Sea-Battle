@@ -1,5 +1,5 @@
 package Entities.Enum
 
-enum class CellStatus {
+enum class StatusCell {
     EMPTY, SHIP, HIT, MISS
 }

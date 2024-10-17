@@ -1,5 +1,5 @@
 package Entities.Enum
 
-enum class Orientation {
+enum class TypeOrientation {
     HORIZONTAL, VERTICAL
 }

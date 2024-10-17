@@ -2,16 +2,16 @@ package Players
 
 import Entities.DataClass.Coordinate
 import Entities.DataClass.Ship
-import Entities.Enum.CellStatus
-import Entities.Enum.Orientation
-import Entities.Model.Board
+import Entities.Enum.StatusCell
+import Entities.Enum.TypeOrientation
+import Entities.Model.GameBoard
 import Entities.Model.Player
 
-class ComputerPlayer(board: Board) : Player(board) {
+class PlayerComputer(gameBoard: GameBoard) : Player(gameBoard) {
     private var lastHit: Coordinate? = null  // Координаты последнего попадания
     private var targetCoordinates: MutableList<Coordinate> = mutableListOf()  // Клетки для дальнейших выстрелов
 
-    override fun makeMove(opponentBoard: Board): Coordinate {
+    override fun makeMove(opponentBoard: GameBoard): Coordinate {
         // Если есть приоритетные цели (клетки для стрельбы), стреляем туда
         if (targetCoordinates.isNotEmpty()) {
             val target = targetCoordinates.removeAt(0)
@@ -36,9 +36,9 @@ class ComputerPlayer(board: Board) : Player(board) {
         return Coordinate(x, y)
     }
 
-    override fun processShotResult(opponentBoard: Board, shotCoordinate: Coordinate, result: CellStatus) {
+    override fun processShotResult(opponentBoard: GameBoard, shotCoordinate: Coordinate, result: StatusCell) {
         when (result) {
-            CellStatus.HIT -> {
+            StatusCell.HIT -> {
                 println("Компьютер попал в корабль на координатах (${shotCoordinate.x}, ${shotCoordinate.y})!")
 
                 if (opponentBoard.isShipSunk(shotCoordinate)) {
@@ -54,7 +54,7 @@ class ComputerPlayer(board: Board) : Player(board) {
                     targetCoordinates.addAll(generateAdjacentCoordinates(shotCoordinate, opponentBoard.size))
                 }
             }
-            CellStatus.MISS -> {
+            StatusCell.MISS -> {
                 println("Компьютер промахнулся на координатах (${shotCoordinate.x}, ${shotCoordinate.y}).")
             }
             else -> {}
@@ -88,19 +88,19 @@ class ComputerPlayer(board: Board) : Player(board) {
         for (size in shipSizes) {
             var placed = false
             while (!placed) {
-                val x = (0 until board.size).random()
-                val y = (0 until board.size).random()
-                val orientation = if ((0..1).random() == 0) Orientation.HORIZONTAL else Orientation.VERTICAL
-                val coordinates = generateCoordinates(size, Coordinate(x, y), orientation)
-                val ship = Ship(size, coordinates, orientation)
-                placed = board.placeShip(ship)
+                val x = (0 until gameBoard.size).random()
+                val y = (0 until gameBoard.size).random()
+                val typeOrientation = if ((0..1).random() == 0) TypeOrientation.HORIZONTAL else TypeOrientation.VERTICAL
+                val coordinates = generateCoordinates(size, Coordinate(x, y), typeOrientation)
+                val ship = Ship(size, coordinates, typeOrientation)
+                placed = gameBoard.placeShip(ship)
             }
         }
     }
 
-    private fun generateCoordinates(size: Int, start: Coordinate, orientation: Orientation): List<Coordinate> {
+    private fun generateCoordinates(size: Int, start: Coordinate, typeOrientation: TypeOrientation): List<Coordinate> {
         return (0 until size).map {
-            if (orientation == Orientation.HORIZONTAL) {
+            if (typeOrientation == TypeOrientation.HORIZONTAL) {
                 Coordinate(start.x, start.y + it)
             } else {
                 Coordinate(start.x + it, start.y)
