@@ -13,7 +13,7 @@ class PlayerComputer(gameBoard: GameBoard) : ModelPlayer(gameBoard) {
 
     override fun makeMove(opponentBoard: GameBoard): Coordinate {
         // Если есть приоритетные цели (клетки для стрельбы), стреляем туда
-        if (targetCoordinates.isNotEmpty()) {
+        while (targetCoordinates.isNotEmpty()){
             val target = targetCoordinates.removeAt(0)
             if (opponentBoard.isValidMove(target)) {
                 return target
@@ -72,10 +72,6 @@ class PlayerComputer(gameBoard: GameBoard) : ModelPlayer(gameBoard) {
             Coordinate(0, -1)  // Влево
         )
 
-        // TODO добавить проверку на статус клетки
-        // Так как проверки не статус клетки нету, в методе makeMove если не проходит
-        // валидация, то он стреляет рандомно, что может попасть по кораблю и
-        // обновить список
         for (dir in directions) {
             val newX = coordinate.x + dir.x
             val newY = coordinate.y + dir.y
